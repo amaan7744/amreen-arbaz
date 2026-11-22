@@ -243,7 +243,7 @@ function tick(){var ok=!isNaN(T),d=T-Date.now();
  if(!ok){['cD','cH','cM','cS'].forEach(function(i){$(i).textContent='--'});$('cMsg').textContent='The date will be confirmed soon.';return}
  if(d<=0){['cD','cH','cM','cS'].forEach(function(i){$(i).textContent='00'});$('cMsg').textContent='Alhamdulillah — the blessed day has arrived. Barakallahu lakuma.';return}
  var s=Math.floor(d/1000),p=function(n){return n<10?'0'+n:''+n};
- $('cD').textContent=Math.floor(s/86400);$('cH').textContent=p(Math.floor(s%86400/3600));$('cM').textContent=p(Math.floor(s%3600/60));$('cS').textContent=p(s%60);
+ $('cD').textContent=Math.floor(s/);$('cH').textContent=p(Math.floor(s%86400/3600));$('cM').textContent=p(Math.floor(s%3600/60));$('cS').textContent=p(s%60);
  $('cMsg').textContent=C.day+', '+C.date+' · '+C.time}
 tick();setInterval(tick,1000);
 $('cNote').textContent='Counting to 6:30 PM India time (IST), an approximation of Maghrib.';
