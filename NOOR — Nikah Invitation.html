@@ -1,45 +1,4 @@
-border:.2mm solid var(--go)}
-#pr .in{position:absolute;inset:14mm 16mm;display:flex;flex-direction:column;justify-content:center;align-items:center}
-#pr .nm{font:italic 500 17mm/1 var(--serif)}#pr p{font:400 4mm/1.45 var(--serif)}#pr .sm{font:400 2.6mm var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--go)}
-#pr .ar{font-size:8mm}#pr .rule{margin:4mm auto;width:20mm}
-}
-</style>
-</head>
-<body>
-<div class="top"><button class="tb" id="bCover">Cover</button><button class="tb" id="bPrint">Print invitation</button><button class="tb" id="bRestart">Restart</button></div>
-
-<!-- 0 Envelope -->
-<main class="stage on" id="s0" data-name="Envelope"><div class="c" style="text-align:center">
-<p class="lab" style="margin-bottom:22px">You are invited</p>
-<div class="env" id="env" aria-label="Closed invitation envelope">
-<div class="eb"></div><div class="ek"><span class="ar" lang="ar" dir="rtl" style="font-size:22px">بِسْمِ اللَّهِ</span></div><div class="ep"></div><div class="ef"></div><div class="eg"></div>
-<button class="seal" id="seal" aria-label="Break the seal and open your invitation"><svg viewBox="0 0 100 100" fill="none" stroke="#7A6538" stroke-width="3"><path d="M50 4L61 28L88 14L74 40L96 50L74 60L88 86L61 72L50 96L39 72L12 86L26 60L4 50L26 40L12 14L39 28Z"/><circle cx="50" cy="50" r="13"/></svg></button>
-</div>
-<p class="body emb" style="margin-top:30px;font-style:italic">Open your invitation</p>
-<p class="note" style="opacity:.7">Tap the seal</p>
-<div class="row" style="margin-top:12px"><button class="btn" id="bSkip">Skip animation</button></div>
-</div></main>
-
-<!-- 1 Cover -->
-<section class="stage pat" id="s1" data-name="Cover"><svg class="arch" viewBox="0 0 100 140" preserveAspectRatio="none" aria-hidden="true"><path d="M3 137V62C3 38 30 20 50 3C70 20 97 38 97 62V137Z" style="stroke-width:1"/><path d="M6.5 137V64C6.5 42 32 25 50 9C68 25 93.5 42 93.5 64V137Z" style="stroke-width:.5;opacity:.7"/></svg>
-<div class="c fade"><p class="ar ar-lg emb" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-<div><div class="rule"></div><p class="lab" style="margin:0">Noor</p><p class="body" style="font-style:italic">A Celebration of Nikah</p></div>
-<div style="margin-top:22px"><p class="name emb" data-k="bride"></p><p class="body go" style="margin:4px 0">&amp;</p><p class="name emb" data-k="groom"></p></div>
-<div class="row"><button class="btn fill" data-go="2">Continue</button></div></div></section>
-
-<!-- 2 Invitation -->
-<section class="stage" id="s2" data-name="Invitation"><div class="c fade">
-<p class="ar ar-sm go" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-<p class="body" style="font-size:16px;font-style:italic">In the name of Allah, the Most Merciful, the Especially Merciful.</p>
-<div><div class="rule"></div><p class="big emb" style="font-size:clamp(22px,6.5vw,30px)" data-k="host"></p>
-<p class="body" style="margin-top:8px;font-size:18px">With the blessings of Allah, and the prayers and love of our families, we joyfully invite you and your family to witness and celebrate the blessed occasion of the Nikah of our niece</p></div>
-<div style="margin-top:20px"><p class="lab">Bride</p><p class="name emb" data-k="bride"></p><p class="body" style="font-<div><div class="rule"></div><p class="body emb" style="font-size:24px" data-k="time"></p></div>
-<div><div class="rule"></div><p class="big emb" data-k="venue"></p><p class="body" style="margin-top:6px;font-size:18px" data-k="address"></p></div>
-<p class="body go hide" id="dinner" style="font-style:italic;margin-top:20px;font-size:17px" data-k="dinner"></p>
-</div></section>
-
-<!-- 4 Countdown -->
-<section class="stage" id="s4" data-name="Countdown"><div class="c">
+div class="c">
 <p class="lab">Counting down to the Nikah</p>
 <div class="cd" id="cd" role="timer" aria-live="off"><div><b id="cD">--</b><small>Days</small></div><div><b id="cH">--</b><small>Hours</small></div><div><b id="cM">--</b><small>Minutes</small></div><div><b id="cS">--</b><small>Seconds</small></div></div>
 <p class="body" id="cMsg" style="font-style:italic"></p>
