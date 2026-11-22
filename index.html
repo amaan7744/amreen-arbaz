@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NOOR — Nikah Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--iv:#F5F0E6;--gr:#173C32;--go:#B49A67;--ch:#D9C9A8;
+--serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;--sans:"Jost","Helvetica Neue",Arial,sans-serif;--ar:"Amiri","Noto Naskh Arabic","Geeza Pro","Traditional Arabic",serif;
+--grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .2 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+--geo:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 5L35 20L50 15L45 30L50 45L35 40L30 55L25 40L10 45L15 30L10 15L25 20Z' fill='none' stroke='%23B49A67' stroke-width='1'/%3E%3C/svg%3E")}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--iv);color:var(--gr);font-family:var(--sans);overflow:hidden;-webkit-text-size-adjust:100%}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--go);outline-offset:3px}
+.stage{position:fixed;inset:0;display:flex;padding:calc(64px + env(safe-area-inset-top,0px)) 22px calc(92px + env(safe-area-inset-bottom,0px));overflow-y:auto;text-align:center;visibility:hidden;opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s,visibility 0s .6s;background:var(--grain),radial-gradient(110% 80% at 50% 35%,#F9F5EC,var(--iv) 70%,#EBE3D0)}
+.stage.on{visibility:visible;opacity:1;transform:none;transition:opacity .7s,transform .7s}
+.stage.dk{background:var(--grain),radial-gradient(110% 80% at 50% 40%,#1E4A3E,var(--gr) 75%);color:var(--iv)}
+.stage.pat::before{content:"";position:absolute;inset:0;background:var(--geo);opacity:.07;pointer-events:none}
+.c{margin:auto;width:100%;max-width:440px;position:relative}
+.ar{font-family:var(--ar);direction:rtl;unicode-bidi:isolate;line-height:2}
+.emb{text-shadow:0 1px 0 rgba(255,255,255,.7),0 -1px 0 rgba(23,60,50,.14)}
+.dk .emb{text-shadow:0 1px 0 rgba(0,0,0,.5),0 -1px 0 rgba(255,255,255,.08)}
+.go{color:var(--go)}
+.lab{font:400 11px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--go);margin-bottom:10px}
+.dk .lab{color:var(--ch)}
+.body{font:400 20px/1.55 var(--serif)}
+.name{font:italic 500 clamp(54px,17vw,84px)/.95 var(--serif)}
+.big{font:500 clamp(30px,9vw,44px)/1.15 var(--serif)}
+.rule{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--go),transparent);margin:22px auto}
+.ar-sm{font-size:26px}.ar-lg{font-size:clamp(30px,9.5vw,44px)}
+.btn{background:transparent;border:1px solid var(--go);padding:13px 30px;min-height:46px;letter-spacing:.14em;font-size:12px;text-transform:uppercase;transition:background .25s,color .25s}
+.btn:hover{background:var(--go);color:var(--gr)}
+.btn.fill{background:var(--go);color:var(--gr)}.btn.fill:hover{background:var(--gr);color:var(--iv)}
+.row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+/* top + bottom chrome */
+.top,.nav{position:fixed;left:0;right:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:0 14px;opacity:0;pointer-events:none;transition:opacity .5s}
+.top{top:calc(8px + env(safe-area-inset-top,0px))}
+.nav{bottom:calc(14px + env(safe-area-inset-bottom,0px));justify-content:center;gap:14px}
+body.in .top,body.in .nav{opacity:1;pointer-events:auto}
+.tb{background:none;border:0;font:400 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;padding:12px 8px;min-height:44px;color:inherit}
+.tb:hover{color:var(--go)}
+.ar-b{width:46px;height:46px;border-radius:50%;border:1px solid var(--go);background:transparent;font-size:22px;line-height:1;color:inherit}
+.ar-b:hover:not(:disabled){background:var(--go);color:var(--gr)}.ar-b:disabled{opacity:.3;cursor:default}
+.dots{display:flex;gap:2px}
+.dots button{width:22px;height:34px;border:0;background:none;display:grid;place-items:center;padding:0}
+.dots i{width:7px;height:7px;border:1px solid var(--go);transform:rotate(45deg);transition:background .3s,transform .3s}
+.dots .a i{background:var(--go);transform:rotate(45deg) scale(1.3)}
+body.dk-ui .top,body.dk-ui .nav{color:var(--iv)}body:not(.dk-ui) .top,body:not(.dk-ui) .nav{color:var(--gr)}
+/* envelope */
+#s0{background:var(--grain),radial-gradient(100% 80% at 50% 40%,#F9F5EC,#E8DFC9)}
+.env{position:relative;width:min(88vw,420px);aspect-ratio:7/5;margin:auto;perspective:900px;filter:drop-shadow(0 22px 26px rgba(23,60,50,.35))}
+.env>*{position:absolute}
+.eb{inset:0;background:var(--grain),var(--gr)}
+.ek{left:7%;right:7%;top:8%;bottom:8%;background:var(--grain),var(--iv);z-index:1;display:grid;place-items:center;transition:transform 1s cubic-bezier(.3,.8,.3,1)}
+.ek span{font:italic 500 28px var(--serif);color:var(--gr)}
+.ep{inset:0;z-index:2;background:var(--grain),#1B4538;clip-path:polygon(0 0,50% 54%,100% 0,100% 100%,0 100%)}
+.ef{left:0;right:0;top:0;height:54%;z-index:3;background:var(--grain),#1F4D40;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .8s ease-in-out,z-index 0s .4s;backface-visibility:visible}
+.eg{inset:3.5%;border:1px solid var(--go);z-index:4;pointer-events:none}
+.eg::after{content:"";position:absolute;inset:5px;border:.5px solid var(--go);opacity:.6}
+.seal{left:50%;top:54%;width:74px;height:74px;margin:-37px 0 0 -37px;z-index:5;border:0;border-radius:50%;background:radial-gradient(circle at 35% 30%,#D3BC8A,var(--go) 55%,#8E7646);box-shadow:inset 0 2px 3px rgba(255,255,255,.5),inset 0 -3px 5px rgba(0,0,0,.35),0 4px 8px rgba(0,0,0,.4);display:grid;place-items:center;animation:pulse 2.4s infinite}
+.seal svg{width:44px;height:44px}
+.seal::before,.seal::after{content:"";position:absolute;inset:0;border-radius:50%}
+.seal.crack{animation:crack .7s forwards}
+.env.open .ef{transform:rotateX(180deg);z-index:0}
+.env.open .ek{transform:translateY(-62%)}
+@keyframes pulse{50%{box-shadow:inset 0 2px 3px rgba(255,255,255,.5),inset 0 -3px 5px rgba(0,0,0,.35),0 0 0 9px rgba(180,154,103,.22)}}
+@keyframes crack{30%{transform:scale(1.12) rotate(-6deg)}100%{transform:scale(.4) rotate(18deg);opacity:0}}
+/* cover arch */
+.arch{position:absolute;left:50%;top:50%;width:min(84vw,380px);height:min(120vw,560px);max-height:78vh;transform:translate(-50%,-50%);pointer-events:none}
+.arch path{fill:none;stroke:var(--go);vector-effect:non-scaling-stroke}
+/* countdown */
+.cd{display:grid;grid-template-columns:repeat(4,1fr);margin:22px 0}
+.cd div{padding:6px 0;border-left:1px solid var(--ch)}.cd div:first-child{border:0}
+.cd b{display:block;font:500 clamp(36px,11vw,54px)/1 var(--serif);font-variant-numeric:tabular-nums}
+.cd small{font:400 10px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--go)}
+/* form */
+form{text-align:left;margin-top:20px}
+label,.fl{display:block;font:400 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--go);margin:16px 0 6px}
+input[type=text],input[type=number]{width:100%;background:transparent;border:0;border-bottom:1px solid var(--go);padding:10px 2px;font:400 22px var(--serif);border-radius:0}
+.ch{display:flex;gap:10px}.ch label{flex:1;margin:0;position:relative}
+.ch input{position:absolute;opacity:0}
+.ch span{display:block;text-align:center;border:1px solid var(--go);padding:12px 6px;font:400 13px var(--sans);letter-spacing:.06em;text-transform:none;color:var(--gr);min-height:46px}
+.ch input:checked+span{background:var(--gr);color:var(--iv)}.ch input:focus-visible+span{outline:2px solid var(--go);outline-offset:2px}
+.err{color:#8a2b1f;font:400 13px var(--sans);min-height:18px;margin-top:4px}
+.note{font:300 13px/1.5 var(--sans);color:var(--gr);opacity:.8;margin-top:14px}
+.hide{display:none!important}
+#toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--gr);color:var(--iv);border:1px solid var(--go);padding:10px 20px;font:400 13px var(--sans);opacity:0;pointer-events:none;transition:.3s;z-index:20}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.kf{animation:spin 60s linear infinite;width:64px;height:64px;margin:0 auto 18px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.fade>*{opacity:0;transform:translateY(10px)}.on .fade>*{animation:up .8s forwards}
+.on .fade>*:nth-child(2){animation-delay:.15s}.on .fade>*:nth-child(3){animation-delay:.3s}.on .fade>*:nth-child(4){animation-delay:.45s}.on .fade>*:nth-child(5){animation-delay:.6s}.on .fade>*:nth-child(6){animation-delay:.75s}
+@keyframes up{to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}.fade>*{opacity:1;transform:none}}
+/* print */
+#pr{display:none}
+@media print{
+@page{size:A5;margin:0}
+html,body{overflow:visible;height:auto;background:#fff}
+.stage,.top,.nav,#toast{display:none!important}
+#pr{display:block;width:148mm;height:210mm;padding:11mm;position:relative;background:var(--iv);color:var(--gr);text-align:center;-webkit-print-color-adjust:exact;print-color-adjust:exact;overflow:hidden}
+#pr .f1{position:absolute;inset:7mm;border:.4mm solid var(--go)}#pr .f2{position:absolute;inset:9.4mm;border:.2mm solid var(--go)}
+#pr .in{position:absolute;inset:14mm 16mm;display:flex;flex-direction:column;justify-content:center;align-items:center}
+#pr .nm{font:italic 500 17mm/1 var(--serif)}#pr p{font:400 4mm/1.45 var(--serif)}#pr .sm{font:400 2.6mm var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--go)}
+#pr .ar{font-size:8mm}#pr .rule{margin:4mm auto;width:20mm}
+}
+</style>
+</head>
+<body>
+<div class="top"><button class="tb" id="bCover">Cover</button><button class="tb" id="bPrint">Print invitation</button><button class="tb" id="bRestart">Restart</button></div>
+
+<!-- 0 Envelope -->
+<main class="stage on" id="s0" data-name="Envelope"><div class="c" style="text-align:center">
+<p class="lab" style="margin-bottom:22px">You are invited</p>
+<div class="env" id="env" aria-label="Closed invitation envelope">
+<div class="eb"></div><div class="ek"><span class="ar" lang="ar" dir="rtl" style="font-size:22px">بِسْمِ اللَّهِ</span></div><div class="ep"></div><div class="ef"></div><div class="eg"></div>
+<button class="seal" id="seal" aria-label="Break the seal and open your invitation"><svg viewBox="0 0 100 100" fill="none" stroke="#7A6538" stroke-width="3"><path d="M50 4L61 28L88 14L74 40L96 50L74 60L88 86L61 72L50 96L39 72L12 86L26 60L4 50L26 40L12 14L39 28Z"/><circle cx="50" cy="50" r="13"/></svg></button>
+</div>
+<p class="body emb" style="margin-top:30px;font-style:italic">Open your invitation</p>
+<p class="note" style="opacity:.7">Tap the seal</p>
+<div class="row" style="margin-top:12px"><button class="btn" id="bSkip">Skip animation</button></div>
+</div></main>
+
+<!-- 1 Cover -->
+<section class="stage pat" id="s1" data-name="Cover"><svg class="arch" viewBox="0 0 100 140" preserveAspectRatio="none" aria-hidden="true"><path d="M3 137V62C3 38 30 20 50 3C70 20 97 38 97 62V137Z" style="stroke-width:1"/><path d="M6.5 137V64C6.5 42 32 25 50 9C68 25 93.5 42 93.5 64V137Z" style="stroke-width:.5;opacity:.7"/></svg>
+<div class="c fade"><p class="ar ar-lg emb" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+<div><div class="rule"></div><p class="lab" style="margin:0">Noor</p><p class="body" style="font-style:italic">A Celebration of Nikah</p></div>
+<div style="margin-top:22px"><p class="name emb" data-k="bride"></p><p class="body go" style="margin:4px 0">&amp;</p><p class="name emb" data-k="groom"></p></div>
+<div class="row"><button class="btn fill" data-go="2">Continue</button></div></div></section>
+
+<!-- 2 Invitation -->
+<section class="stage" id="s2" data-name="Invitation"><div class="c fade">
+<p class="ar ar-sm go" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+<p class="body" style="font-size:16px;font-style:italic">In the name of Allah, the Most Merciful, the Especially Merciful.</p>
+<div><div class="rule"></div><p class="big emb" style="font-size:clamp(22px,6.5vw,30px)" data-k="host"></p>
+<p class="body" style="margin-top:8px;font-size:18px">With the blessings of Allah, and the prayers and love of our families, we joyfully invite you and your family to witness and celebrate the blessed occasion of the Nikah of our niece</p></div>
+<div style="margin-top:20px"><p class="lab">Bride</p><p class="name emb" data-k="bride"></p><p class="body" style="font-style:italic;font-size:17px" data-k="brideP"></p></div>
+<div style="margin-top:18px"><p class="lab">Groom</p><p class="name emb" data-k="groom"></p><p class="body" style="font-style:italic;font-size:17px" data-k="groomP"></p></div>
+</div></section>
+
+<!-- 3 Nikah -->
+<section class="stage dk pat" id="s3" data-name="Nikah ceremony"><div class="c fade">
+<svg class="kf" viewBox="0 0 100 100" fill="none" stroke="#B49A67" stroke-width="1.4" aria-hidden="true"><path d="M50 2L61 27L88 12L73 39L98 50L73 61L88 88L61 73L50 98L39 73L12 88L27 61L2 50L27 39L12 12L39 27Z"/></svg>
+<p class="lab">Nikah ceremony · Insha Allah</p>
+<div><p class="big emb" data-k="day"></p><p class="big emb" data-k="date"></p><p class="body go" style="font-style:italic" data-k="hijri"></p></div>
+<div><div class="rule"></div><p class="body emb" style="font-size:24px" data-k="time"></p></div>
+<div><div class="rule"></div><p class="big emb" data-k="venue"></p><p class="body" style="margin-top:6px;font-size:18px" data-k="address"></p></div>
+<p class="body go hide" id="dinner" style="font-style:italic;margin-top:20px;font-size:17px" data-k="dinner"></p>
+</div></section>
+
+<!-- 4 Countdown -->
+<section class="stage" id="s4" data-name="Countdown"><div class="c">
+<p class="lab">Counting down to the Nikah</p>
+<div class="cd" id="cd" role="timer" aria-live="off"><div><b id="cD">--</b><small>Days</small></div><div><b id="cH">--</b><small>Hours</small></div><div><b id="cM">--</b><small>Minutes</small></div><div><b id="cS">--</b><small>Seconds</small></div></div>
+<p class="body" id="cMsg" style="font-style:italic"></p>
+<p class="note" id="cNote"></p>
+</div></section>
+
+<!-- 5 Venue -->
+<section class="stage" id="s5" data-name="Venue"><div class="c">
+<p class="lab">Venue</p><p class="big emb" data-k="venue"></p><p class="body" style="margin-top:10px" data-k="address"></p>
+<div class="row"><button class="btn fill" id="bMap">Open in Google Maps</button><button class="btn" id="bCopy">Copy address</button></div>
+</div></section>
+
+<!-- 7 Closing -->
+<section class="stage dk pat" id="s7" data-name="Closing"><div class="c fade">
+<svg class="kf" viewBox="0 0 100 100" fill="none" stroke="#B49A67" stroke-width="1.4" aria-hidden="true"><path d="M50 2L61 27L88 12L73 39L98 50L73 61L88 88L61 73L50 98L39 73L12 88L27 61L2 50L27 39L12 12L39 27Z"/><circle cx="50" cy="50" r="10"/></svg>
+<p class="body emb" style="font-style:italic;font-size:clamp(22px,6.4vw,28px);line-height:1.6">May Allah bless this union, place love and mercy between their hearts, and grant them a marriage filled with barakah.</p>
+<div><div class="rule"></div><p class="body emb" data-k="compliments" style="font-size:18px"></p></div>
+<p class="lab" style="margin-top:26px">Noor</p>
+<div class="row"><button class="btn fill" id="bBegin">Return to the beginning</button></div>
+</div></section>
+
+<!-- Print sheet -->
+<div id="pr"><div class="f1"></div><div class="f2"></div><div class="in">
+<div class="ar" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+<p style="font-size:3.3mm;font-style:italic">In the name of Allah, the Most Merciful, the Especially Merciful.</p><div class="rule"></div>
+<p data-k="host" style="font-weight:500;font-size:4.6mm"></p>
+<p style="font-size:3.5mm">With the blessings of Allah, and the prayers and love of our families, we joyfully invite you and your family to witness and celebrate the blessed Nikah of our niece</p>
+<div class="nm" data-k="bride" style="margin-top:5mm"></div><p style="font-style:italic;font-size:3.4mm" data-k="brideP"></p>
+<div class="nm" data-k="groom" style="margin-top:4mm"></div><p style="font-style:italic;font-size:3.4mm" data-k="groomP"></p><div class="rule"></div>
+<div class="sm">Nikah · Insha Allah</div><p style="font-size:5mm"><span data-k="day"></span>, <span data-k="date"></span></p><p style="font-style:italic;color:var(--go)" data-k="hijri"></p><p data-k="time"></p>
+<div class="rule" style="margin:3mm auto"></div><p style="font-weight:500;font-size:4.8mm" data-k="venue"></p><p style="font-size:3.4mm" data-k="address"></p>
+<div class="rule"></div><p style="font-style:italic;font-size:3.6mm">May Allah bless this union, place love and mercy between their hearts, and grant them a marriage filled with barakah.</p>
+</div></div>
+<div id="toast" role="status"></div>
+<nav class="nav" aria-label="Invitation navigation"><button class="ar-b" id="bPrev" aria-label="Previous">‹</button><div class="dots" id="dots"></div><button class="ar-b" id="bNext" aria-label="Next">›</button></nav>
+
+<script>
+/* ===== EDIT HERE: wedding information & settings ===== */
+var C={
+ bride:'Amreen', groom:'Arbaz',
+ host:'Mrs. & Mr. Haji Md. Salim Ismail Mulani',
+ brideP:'D/o Mr. Basha Ismail Mulani', groomP:'S/o Mr. Jaweed Md. Umar Mallabadkar',
+ day:'Monday', date:'21 December 2026', hijri:'11 Rajab 1448 AH',
+ time:'After Namaz-e-Maghrib',
+ venue:'Happy Function Hall', address:'Sahara Nagar 2, Madina Chowk, Majrevadi Road, Solapur',
+ dinner:'Dinner to follow the Nikah',            // set to '' to remove
+ compliments:'With best compliments from all relatives & friends',
+ nikahISO:'2026-12-21T18:30:00+05:30'             // countdown target, India time (IST). Card says "after Maghrib" with no clock time: confirm and adjust.
+};
+/* ====================================================== */
+(function(){
+var $=function(i){return document.getElementById(i)},all=function(s){return [].slice.call(document.querySelectorAll(s))};
+all('[data-k]').forEach(function(e){e.textContent=C[e.dataset.k]||''});
+if(C.dinner)$('dinner').classList.remove('hide');
+var st=all('.stage'),cur=0,busy=false,N=st.length;
+var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('on')},2200)}
+// dots
+for(var i=1;i<N;i++){(function(i){var b=document.createElement('button');b.setAttribute('aria-label','Go to '+st[i].dataset.name);b.innerHTML='<i></i>';b.onclick=function(){go(i)};$('dots').appendChild(b)})(i)}
+function go(n){
+ n=Math.max(0,Math.min(N-1,n));cur=n;
+ st.forEach(function(s,k){s.classList.toggle('on',k===n);s.setAttribute('aria-hidden',k!==n);if(k===n)s.scrollTop=0});
+ document.body.classList.toggle('in',n>0);
+ document.body.classList.toggle('dk-ui',st[n].classList.contains('dk'));
+ all('#dots button').forEach(function(b,k){b.classList.toggle('a',k+1===n);b.setAttribute('aria-current',k+1===n?'step':'false')});
+ $('bPrev').disabled=n<=1;$('bNext').disabled=n>=N-1;
+}
+$('bPrev').onclick=function(){go(cur-1)};$('bNext').onclick=function(){go(cur+1)};
+all('[data-go]').forEach(function(b){b.onclick=function(){go(+b.dataset.go)}});
+$('bCover').onclick=function(){go(1)};
+function reset(){var e=$('env');e.classList.remove('open');$('seal').classList.remove('crack');busy=false;go(0)}
+$('bRestart').onclick=reset;$('bBegin').onclick=reset;
+document.addEventListener('keydown',function(e){if(cur<1||/INPUT|SELECT|TEXTAREA/.test((e.target||{}).tagName))return;if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1)});
+var sx=null;document.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',function(e){if(sx===null||cur<1||/INPUT|BUTTON/.test(e.target.tagName)){sx=null;return}var d=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(d)>70)go(cur+(d<0?1:-1))},{passive:true});
+// envelope
+function open(){if(busy)return;busy=true;var k=reduce?1:0;$('seal').classList.add('crack');
+ setTimeout(function(){$('env').classList.add('open')},k?0:600);setTimeout(function(){go(1)},k?200:2300)}
+$('seal').onclick=open;$('env').onclick=function(e){if(e.target.id!=='seal')open()};
+$('bSkip').onclick=function(){busy=true;go(1)};
+// print
+$('bPrint').onclick=function(){try{window.print()}catch(e){toast('Open this page in a full browser tab to print')}};
+// countdown
+var T=new Date(C.nikahISO).getTime();
+function tick(){var ok=!isNaN(T),d=T-Date.now();
+ if(!ok){['cD','cH','cM','cS'].forEach(function(i){$(i).textContent='--'});$('cMsg').textContent='The date will be confirmed soon.';return}
+ if(d<=0){['cD','cH','cM','cS'].forEach(function(i){$(i).textContent='00'});$('cMsg').textContent='Alhamdulillah — the blessed day has arrived. Barakallahu lakuma.';return}
+ var s=Math.floor(d/1000),p=function(n){return n<10?'0'+n:''+n};
+ $('cD').textContent=Math.floor(s/86400);$('cH').textContent=p(Math.floor(s%86400/3600));$('cM').textContent=p(Math.floor(s%3600/60));$('cS').textContent=p(s%60);
+ $('cMsg').textContent=C.day+', '+C.date+' · '+C.time}
+tick();setInterval(tick,1000);
+$('cNote').textContent='Counting to 6:30 PM India time (IST), an approximation of Maghrib.';
+// maps + copy
+var full=C.venue+', '+C.address;
+$('bMap').onclick=function(){window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(full),'_blank','noopener')};
+$('bCopy').onclick=function(){
+ function ok(){toast('Address copied');$('bCopy').textContent='Copied ✓';setTimeout(function(){$('bCopy').textContent='Copy address'},2000)}
+ function fb(){var t=document.createElement('textarea');t.value=full;t.style.cssText='position:fixed;opacity:0';document.body.appendChild(t);t.select();try{document.execCommand('copy')?ok():toast('Press and hold the address to copy')}catch(e){toast('Press and hold the address to copy')}t.remove()}
+ if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(full).then(ok,fb);else fb()};
+go(0);
+})();
+</script>
+</body>
+</html>
